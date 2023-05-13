@@ -1,80 +1,133 @@
-// https://api.openweathermap.org/data/2.5/weather?q=delhi&appid=a2e86f2fe7b70e28afebb96422757d0e
-let favouritePlaces = []
+setInterval(() => {
+    let date = new Date();
+    let hours = date.getHours();
+    let minutes= date.getMinutes();
+    let seconds= date.getSeconds(); 
+    let day_night = "AM";
+    if (hours > 12){
+        day_night = "PM"
+        hours=hours-12;
+    }
+    if (hours < 10){
+        hours="0" + hours;
+    } 
+    if(minutes < 10){
+        minutes = "0" + minutes;
+    }
+    if(seconds <10){
+        seconds ="0" + seconds;
+    } 
 
-let weather = {
-    apiKey: "API KEY GOES HERE",
-    fetchWeather: function (city) {
-      fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=a2e86f2fe7b70e28afebb96422757d0e`
-      )
-        .then((response) => {
-          if (!response.ok) {
-            alert("No weather found.");
-            throw new Error("No weather found.");
-          }
-          return response.json();
-        })
-        
-        .then((data) => this.displayWeather(data));
-    },
-    
-    displayWeather: function (data) {
-      let weatherData = JSON.stringify(data)
-      localStorage.setItem("weatherData",weatherData)
-      const { name } = data;
-      const { icon, description } = data.weather[0];
-      const { temp, humidity } = data.main;
-      const { speed } = data.wind;
-      document.querySelector(".city").innerText = "Weather in " + name;
-      document.querySelector(".icon").src =
-        "https://openweathermap.org/img/wn/" + icon + ".png";
-      document.querySelector(".description").innerText = description;
-      document.querySelector(".temp").innerText = Math.round((temp-272.15), 2)+ "°C";
-      document.querySelector(".humidity").innerText =
-        "Humidity: " + humidity + "%";
-      document.querySelector(".wind").innerText =
-        "Wind speed: " + speed + " km/h";
-      document.querySelector(".weather").classList.remove("loading");
-    //   document.body.style.backgroundImage =
-    //     "url('https://source.unsplash.com/1600x900/?" + name + "')";
-    },
-    search: function () {
-      this.fetchWeather(document.querySelector(".search-bar").value);
-    },
-  };
-  
-document.querySelector(".search button").addEventListener("click", function () {
-    weather.search();
-  });
+    time.textContent = hours + ":" + minutes + ":" + seconds + " " + day_night
 
-  document.querySelector(".add-to-favourites").addEventListener("click", function () {
-    console.log("add clicked")
-    let data = localStorage.getItem("weatherData")
-    let weatherData = JSON.parse(data)
-    console.log(weatherData)
-    favouritePlaces.push(weatherData)
-    createFavourites()
 });
 
-function createFavourites(){
-    let array = document.querySelector('.favourites')
-    let list = "";
-    for(let i=0;i<favouritePlaces.length;i++){
-        const {name} = favouritePlaces[i]
-        list += `${name}  
-                        `
+const todaysDate = new Date();
+const formattedDate = todaysDate.toLocaleDateString('en-GB', {
+  day: '2-digit', month: 'short', year: 'numeric'
+}).replace(/ /g, '-');
+console.log(formattedDate);
+
+date.textContent = formattedDate
+
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const d = new Date();
+const dayName = days[d.getDay()];
+day.textContent = dayName + ",  "
+
+const weatherAppContainer=document.querySelector(".weather-app-container");
+const inputSection=document.querySelector(".input-section");
+const messageCont=document.querySelector(".message-cont");
+const inputField=document.querySelector("input");
+const locationBtn=document.querySelector("button");
+const weatherIcon=document.querySelector(".weather-part img")
+const backButton=document.querySelector("header i");
+let apiUrl;
+
+inputField.addEventListener("keyup",e=>{
+    if(e.key=="Enter" && inputField.value!="")
+    {
+        requestApi(inputField.value)
     }
-    array.innerText= list
+})
+
+locationBtn.addEventListener("click",()=>{
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(Success,Error);
+    }
+    else{
+        alert("Your browser not support geolocation api");
+    }
+});
+
+const Error = (error) => {
+    messageCont.textContent="Please allow the location";
+    messageCont.classList.add("error");
 }
-  
-document
-    .querySelector(".search-bar")
-    .addEventListener("keyup", function (event) {
-      if (event.key == "Enter") {
-        weather.search();
-      }
-    });
 
+const Success = (position) => {
+    const {latitude,longitude}=position.coords;
+    apiUrl=`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${"a2e86f2fe7b70e28afebb96422757d0e"}&lang={en}`;
+    fetchData(apiUrl);
+}
 
+const requestApi = (city) => {
+    apiUrl=`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${"a2e86f2fe7b70e28afebb96422757d0e"}`;
+    fetchData(apiUrl);
+}
 
-weather.fetchWeather("Hyderabad");
+const fetchData = () => {
+    messageCont.textContent="loading...";
+    messageCont.classList.add("pending");
+    fetch(apiUrl).then(response=>response.json()).then(result=>weatherDetails(result))
+}
+
+backButton.addEventListener("click",()=>{
+    weatherAppContainer.classList.remove("active");
+})
+
+const weatherDetails = (data) => {
+    console.log(data)
+    if(data.cod=="404")
+    {
+        messageCont.textContent=`${inputField.value} is not a valid city name`;
+        messageCont.classList.replace("pending","error");
+    }
+    else{
+        const city=data.name;
+        const country=data.sys.country;
+        const {main,id}=data.weather[0];
+        const {feels_like,humidity,temp,pressure}=data.main;
+        const {speed} = data.wind
+       
+        if(id==800){
+            weatherIcon.src="https://res.cloudinary.com/di4qjlwyr/image/upload/v1683987856/1_kt7ptz.svg";
+        }
+        else if(id>=200 && id<=232){
+            weatherIcon.src="https://res.cloudinary.com/di4qjlwyr/image/upload/v1683987898/2_lyowgq.svg";
+        }
+        else if(id>=600 && id<=622){
+            weatherIcon.src="https://res.cloudinary.com/di4qjlwyr/image/upload/v1683987906/3_rgxqyx.svg";
+        }
+        else if(id>=701 && id<=781){
+            weatherIcon.src="https://res.cloudinary.com/di4qjlwyr/image/upload/v1683987918/4_mrhgp3.svg";
+        }
+        else if(id>=801 && id<=804){
+            weatherIcon.src="https://res.cloudinary.com/di4qjlwyr/image/upload/v1683987928/5_l2tgus.svg";
+        }
+        else if((id>=300 && id<=321) || (id>=500 && id<=531)){
+            weatherIcon.src="https://res.cloudinary.com/di4qjlwyr/image/upload/v1683987936/6_uuqsg9.svg";
+        }
+
+        weatherAppContainer.querySelector(".temperature-cont .number-text").innerText=Math.floor(temp);
+        weatherAppContainer.querySelector(".weather").innerText=main;
+        weatherAppContainer.querySelector(".location span").innerText=`${city}, ${country}`;
+        weatherAppContainer.querySelector(".temperature-cont .number-text-2").innerText=feels_like;
+        weatherAppContainer.querySelector(".humidity span").innerText=`${humidity}%`;
+        weatherAppContainer.querySelector(".pressure span").innerText=`${pressure} hPa`;
+        weatherAppContainer.querySelector(".speed span").innerText=`${speed} m/s`;
+       
+        messageCont.classList.remove("pending")
+        weatherAppContainer.classList.add("active")
+    }
+}

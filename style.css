@@ -1,121 +1,326 @@
-body{
-    box-sizing: border-box;
-    margin: 0%;
-
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Poppins',sans-serif;
 }
-.main-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+
+.main-container{
+    display:flex;
+    justify-content: space-evenly;
     align-items: center;
-    font-family: 'Open Sans', sans-serif;
-    background: #222;
-    background-image: url('https://cdn.telanganatoday.com/wp-content/uploads/2021/02/Hyderabad-enjoys-unexpected-showers-on-Friday.jpg');
+    min-height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.60)),url('https://img.freepik.com/free-photo/white-cloud-blue-sky_74190-2381.jpg?w=826&t=st=1683885072~exp=1683885672~hmac=d8e6897176aa41e68589fb6b3616e118be155893b1af51ecc498258b4575ba90');
     background-size: cover;
-    font-size: 120%;
-    height: 80vh;
-  }
-  @media (min-width:769px) {
-    .main-container{}
-  }
-  
-  .card {
-    background: #000000d0;
-    color: white;
-    padding: 2em;
-    border-radius: 30px;
-    width: 100%;
-    max-width: 420px;
-    margin: 1em;
-    height: 70%;
-  }
-  
-  .search {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .search-button {
-    margin: 0.5em;
-    border-radius: 50%;
-    border: none;
-    height: 44px;
-    width: 44px;
-    outline: none;
-    background: #7c7c7c2b;
-    color: white;
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
   }
 
-  .add-to-favourites{
-    margin: 1rem;
-    border-radius: 10%;
-    border: none;
-    background: #7c7c7c2b;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 10px;
-  }
-  
-  input.search-bar {
-    border: none;
-    outline: none;
-    padding: 0.4em 1em;
-    border-radius: 24px;
-    background: #7c7c7c2b;
-    color: white;
-    font-family: inherit;
-    font-size: 105%;
-    width: calc(100% - 100px);
-  }
-  
-  button:hover {
-    background: #7c7c7c6b;
-  }
-  
-  h1.temp {
-    margin: 0;
-    margin-bottom: 0.4em;
-  }
-  
-  .flex {
+.wallpaper{
+    background-image: url("https://img.freepik.com/premium-photo/blue-leaves_73485-273.jpg?w=740");
+    background-size: cover;
+    height: 100vh;
+    width: 40vw;
+    margin-right: auto;
     display: flex;
-    align-items: center;
-  }
-  
-  .description {
-    text-transform: capitalize;
-    margin-left: 8px;
-  }
-  
-  .weather.loading {
-    visibility: hidden;
-    max-height: 20px;
-    position: relative;
-  }
-  
-  .weather.loading:after {
-    visibility: visible;
-    content: "Loading...";
-    color: white;
-    position: absolute;
-    top: 0;
-    left: 20px;
-  }
-  .favourites{
+    flex-direction: column;
+    justify-content: end;
+    align-items: flex-start;
+    padding: 0 0 50px 30px;
+    color: #ebe5e5;
+    font-size: 1rem;
+    font-weight: 700;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+
+
+@media (max-width:1023px) {
+    .wallpaper{
+        display: none;
+    }
+}
+
+.day-date-cont{
     display: flex;
+}
+
+.weather-cont{
+    align-self: center;
+    display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 20px;
-  }
-  .container-2{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    margin-right: auto;
+}
+
+  .head{
+    color: #43AFFC;
     font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
   }
+
+
+.weather-app-container{
+  border:2px solid #43AFFC;
+  color: white;
+  padding: 2em;
+  border-radius: 30px;
+  width: 100%;
+  max-width: 420px;
+  margin: 1em;
+  height: 70%;
+}
+@media (max-width:767px) {
+    .weather-app-container{
+        border:2px solid #43AFFC;
+        color: white;
+        padding: 1rem;
+        border-radius: 30px;
+        width: 80%;
+        max-width: 420px;
+        margin: 2rem;
+        height: 70%;
+    }
+}
+
+.weather-app-container header{
+    color: #43AFFC;
+    font-size:21px;
+    font-weight: 500;
+    padding:16px 15px;
+    border-bottom: 1px solid #c4c2c2;
+}
+
+.label{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+header i{
+    cursor:pointer;
+    font-size:0px;
+    margin-right:8px;
+}
+
+.weather-app-container.active header i{
+    font-size: 30px;
+    margin-left:5px;
+}
+
+.weather-app-container .input-section{
+    margin:20px 25px 35px;
+}
+
+.weather-app-container.active .input-section{
+    display: none;
+}
+
+.input-section .message-cont{
+    display: none;
+    font-size:17px;
+    text-align: center;
+    padding:12px 10px;
+    border-radius: 7px;
+    margin-bottom: 15px;
+}
+
+.message-cont.error{
+    display: block;
+    color:#a13e48;
+    background-color: #fce7e9;
+    border:1px solid #f8c2c7;
+}
+
+.message-cont.pending{
+    display: block;
+    color:#186a79;
+    background-color: #d5eaee;
+    border:1px solid #b7e4eb;
+}
+
+.input-section :where(button){
+    width:100%;
+    height:55px;
+    border:none;
+    outline:none;
+    font-size:18px;
+    border-radius: 7px;
+}
+
+.get-started-button {
+    padding: 0.9em 1.8em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #43AFFC;
+    transition: all 1000ms;
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #43AFFC;
+    cursor: pointer;
+    margin-top: 20px;
+    background-color: #c4c2c2;
+  }
+  .get-started-button:hover {
+    color: #ffffff;
+    transform: scale(1.1);
+    outline: 2px solid #70bdca;
+    box-shadow: 4px 5px 17px -4px #268391;
+  }
+  
+  .get-started-button::before {
+    content: '';
+    position: absolute;
+    left: -50px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: #43AFFC;
+    transform: skewX(45deg);
+    z-index: -1;
+    transition: width 1000ms;
+  }
+  
+  .get-started-button:hover::before {
+    width: 250%;
+  }
+
+.weather-app-container .weather-part{
+    margin:30px 0 0;
+    display:none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.weather-app-container.active .weather-part{
+    display: flex;
+    
+}
+
+
+.weather-part img{
+    max-width: 125px;
+    margin-right: 40px;
+}
+
+@media (max-width:767px) {
+    .weather-part img{
+        max-width: 100px;
+        margin-right: 20px;
+    }
+}
+
+.weather-part .temperature-cont{
+    font-size: 30px;
+    display: flex;
+    font-weight: 500;
+    margin-top: 15px;
+}
+
+.weather-part  .temperature-cont .number-text{
+    font-weight: 600;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.weather-part  .temperature-cont .degree{
+    font-size: 40px;
+    margin:0px 5px 13px 0;
+    display: block;
+}
+
+.weather-part .weather{
+    font-size: 30px;
+    text-align: center;
+    margin:-5px 20px 15px;
+}
+
+.weather-part .location{
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.location i{
+    font-size: 40px;
+    margin-right: 5px;
+}
+
+.image-description{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.weather-part .bottom-details{
+    width:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.bottom-details .column{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 0;
+    margin: 10px 30px 10px 30px;
+}
+
+.column i{
+    color:#43AFFC;
+    font-size: 40px;
+}
+
+.details .temperature-cont,.humidity span,.pressure span,.speed span{
+    font-size: 18px;
+    font-weight:500;
+}
+
+.details .temperature-cont .degree{
+    margin:0;
+    font-size: 17px;
+    padding:0 2px 0 1px;
+}
+
+.details p{
+    font-size: 14px;
+}
+.input {
+    width:100%;
+    height:55px;
+    font-size:18px;
+    border-radius: 7px;
+    border: 2px solid transparent;
+    outline: none;
+    border-bottom: 2px solid #c4c2c2;
+    caret-color: #c4c2c2;
+    background-color: #d1d0d0;
+    padding: 5px;
+    transition: .5s linear;
+    font-family: monospace;
+    letter-spacing: 1px;
+    margin-top: 1rem;
+  }
+  
+  .input:focus {
+    border: 2px solid #43AFFC;
+    caret-color: #43AFFC;
+    color: #43AFFC;
+    box-shadow: 4px 4px 10px #070707;
+  }
+  
+  .input:focus::placeholder {
+    color: #43AFFC;
+  }
+
+.lat-lon{
+   margin-top: 2rem;
+}

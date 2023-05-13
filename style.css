@@ -72,6 +72,7 @@
   margin: 1em;
   height: 70%;
 }
+
 @media (max-width:767px) {
     .weather-app-container{
         border:2px solid #43AFFC;
@@ -205,7 +206,7 @@ header i{
 
 
 .weather-part img{
-    max-width: 125px;
+    width: 125px;
     margin-right: 40px;
 }
 

@@ -129,16 +129,12 @@ header i{
 
 .message-cont.error{
     display: block;
-    color:#a13e48;
-    background-color: #fce7e9;
-    border:1px solid #f8c2c7;
+    color:#ffffff;
 }
 
 .message-cont.pending{
     display: block;
-    color:#186a79;
-    background-color: #d5eaee;
-    border:1px solid #b7e4eb;
+    color:#ffffff;
 }
 
 .input-section :where(button){
